@@ -1,11 +1,6 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
 using ViewModelFirst.Models;
-using Assisticant;
 
 namespace ViewModelFirst.ViewModels
 {
@@ -42,72 +37,6 @@ namespace ViewModelFirst.ViewModels
             {
                 if (value != null)
                     _selection.SelectedItem = value.Item;
-            }
-        }
-
-        public ItemViewModel ItemDetail
-        {
-            get
-            {
-                return _selection.SelectedItem == null
-                    ? null
-                    : new ItemViewModel(_selection.SelectedItem);
-            }
-        }
-
-        public ICommand AddItem
-        {
-            get
-            {
-                return MakeCommand
-                    .Do(delegate
-                    {
-                        _selection.SelectedItem = _document.NewItem();
-                    });
-            }
-        }
-
-        public ICommand DeleteItem
-        {
-            get
-            {
-                return MakeCommand
-                    .When(() => _selection.SelectedItem != null)
-                    .Do(delegate
-                    {
-                        _document.DeleteItem(_selection.SelectedItem);
-                        _selection.SelectedItem = null;
-                    });
-            }
-        }
-
-        public ICommand MoveItemDown
-        {
-            get
-            {
-                return MakeCommand
-                    .When(() =>
-                        _selection.SelectedItem != null &&
-                        _document.CanMoveDown(_selection.SelectedItem))
-                    .Do(delegate
-                    {
-                        _document.MoveDown(_selection.SelectedItem);
-                    });
-            }
-        }
-
-        public ICommand MoveItemUp
-        {
-            get
-            {
-                return MakeCommand
-                    .When(() =>
-                        _selection.SelectedItem != null &&
-                        _document.CanMoveUp(_selection.SelectedItem))
-                    .Do(delegate
-                    {
-                        _document.MoveUp(_selection.SelectedItem);
-                    });
             }
         }
     }

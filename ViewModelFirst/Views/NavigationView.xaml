@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ViewModelFirst.Views.NavigationView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="57" d:DesignWidth="405">
+    <Grid>
+        <StackPanel VerticalAlignment="Bottom" Orientation="Horizontal">
+            <Button Content="New" Width="75" Margin="10" Height="25" Command="{Binding AddItem}"/>
+            <Button Content="Delete" Width="75" Margin="10" Height="25" Command="{Binding DeleteItem}"/>
+            <Button Content="Up" Width="75" Margin="10" Height="25" Command="{Binding MoveItemUp}"/>
+            <Button Content="Down" Width="75" Margin="10" Height="25" Command="{Binding MoveItemDown}"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
