@@ -1,6 +1,4 @@
-﻿using Assisticant;
-using System.Windows.Input;
-using ViewModelFirst.Models;
+﻿using ViewModelFirst.Models;
 
 namespace ViewModelFirst.ViewModels
 {
@@ -15,60 +13,35 @@ namespace ViewModelFirst.ViewModels
 			_selection = selection;
         }
 
-        public ICommand AddItem
+        public void AddItem()
         {
-            get
-            {
-                return MakeCommand
-                    .Do(delegate
-                    {
-                        _selection.SelectedItem = _document.NewItem();
-                    });
-            }
+            _selection.SelectedItem = _document.NewItem();
         }
 
-        public ICommand DeleteItem
+        public bool CanDeleteItem => _selection.SelectedItem != null;
+
+        public void DeleteItem()
         {
-            get
-            {
-                return MakeCommand
-                    .When(() => _selection.SelectedItem != null)
-                    .Do(delegate
-                    {
-                        _document.DeleteItem(_selection.SelectedItem);
-                        _selection.SelectedItem = null;
-                    });
-            }
+            _document.DeleteItem(_selection.SelectedItem);
+            _selection.SelectedItem = null;
         }
 
-        public ICommand MoveItemDown
+        public bool CanMoveItemDown =>
+            _selection.SelectedItem != null &&
+            _document.CanMoveDown(_selection.SelectedItem);
+
+        public void MoveItemDown()
         {
-            get
-            {
-                return MakeCommand
-                    .When(() =>
-                        _selection.SelectedItem != null &&
-                        _document.CanMoveDown(_selection.SelectedItem))
-                    .Do(delegate
-                    {
-                        _document.MoveDown(_selection.SelectedItem);
-                    });
-            }
+            _document.MoveDown(_selection.SelectedItem);
         }
 
-        public ICommand MoveItemUp
+        public bool CanMoveItemUp =>
+            _selection.SelectedItem != null &&
+            _document.CanMoveUp(_selection.SelectedItem);
+
+        public void MoveItemUp()
         {
-            get
-            {
-                return MakeCommand
-                    .When(() =>
-                        _selection.SelectedItem != null &&
-                        _document.CanMoveUp(_selection.SelectedItem))
-                    .Do(delegate
-                    {
-                        _document.MoveUp(_selection.SelectedItem);
-                    });
-            }
+            _document.MoveUp(_selection.SelectedItem);
         }
     }
 }
